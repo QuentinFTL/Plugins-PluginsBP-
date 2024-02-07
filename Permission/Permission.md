@@ -30,6 +30,10 @@
         - (bool) includes(perm): Check if permission(perm) is registered in Permission/permissions.js.
           - perm: string
         - (void) unset(player): remove all permissions of player.
+            - player: Player | Entity | string
+        - (bool) static has(player, permission = ""): if permission = "", check if player as any permission, else, it check if the player has the target(s) permission(s).
+            - player: Player | Entity | string
+            - permission: string | string[] 
         
 
 # Installations
