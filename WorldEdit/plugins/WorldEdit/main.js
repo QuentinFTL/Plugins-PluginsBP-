@@ -14,10 +14,34 @@ export default class WorldEdit extends Plugin {
         WorldEdit.instance = this;
     }
 
+    load() {
+        super.load(`${Color.WHITE}[${Color.MINECOIN_GOLD}WorldEdit${Color.WHITE}]`);
+
+        let misses = [];
+        if(globalThis.Permission === undefined) {
+            misses.push("Permission");
+        }
+
+        if(globalThis.Core === undefined) {
+            misses.push("Core");
+        }
+
+        if(misses.length > 0) {
+            super.missingDependencies(false, misses);
+        }
+
+    }
+
     start() {
 
-        this.toggleOnWand();
         super.start(`${Color.WHITE}[${Color.MINECOIN_GOLD}WorldEdit${Color.WHITE}]`);
+
+        for (let i = 0; i < world.getAllPlayers().length; i++) {
+            const player = world.getAllPlayers()[i];
+            
+            this.toggleOnWand(player);
+        }
+
     }
 
     commands() {
@@ -54,7 +78,15 @@ export default class WorldEdit extends Plugin {
     }
 
     toggleOnWand(sender) {
+
         let itemUseOn = world.beforeEvents.itemUseOn.subscribe((arg) => {
+            if(!Permission.has(arg.source, [
+                "Admin", 
+                "SuperAdmin", 
+                "Moderator"
+            ])) return;
+            if(super.get_user_array("world_edit_wand_active", arg.source.id) == false) return;
+
             let block = arg.block;
             if (arg.itemStack.typeId != this.wand) {
                 return;
@@ -80,6 +112,8 @@ export default class WorldEdit extends Plugin {
         });
 
         let playerBreakBlock = world.beforeEvents.playerBreakBlock.subscribe((arg) => {
+            if(!Permission.has(arg.player, ["Admin", "SuperAdmin", "Moderator"])) return;
+            if(super.get_user_array("world_edit_wand_active", arg.player.id) == false) return;
 
             let block = arg.block;
             if (arg.itemStack.typeId != this.wand) {
@@ -103,8 +137,11 @@ export default class WorldEdit extends Plugin {
             }
         });
 
-        super.set_user_array("world_edit_second_sel_cb", sender, itemUseOn);
-        super.set_user_array("world_edit_first_sel_cb", sender, playerBreakBlock);
+        super.set_user_array("world_edit_second_sel_cb", sender.id, itemUseOn);
+        super.set_user_array("world_edit_first_sel_cb", sender.id, playerBreakBlock);
+
+        super.set_user_array("world_edit_wand_active", sender.id, true);
+
 
         if (sender != null) {
             sender.sendMessage(`${Color.WHITE}[${Color.MINECOIN_GOLD}WorldEdit${Color.WHITE}]: (${sender.name}) Toggle wand: ${Color.GREEN}true.`);
@@ -113,11 +150,13 @@ export default class WorldEdit extends Plugin {
 
     toggleOffWand(sender) {
 
-        world.beforeEvents.itemUseOn.unsubscribe(super.get_user_array("world_edit_second_sel_cb", sender));
-        world.beforeEvents.playerBreakBlock.unsubscribe(super.get_user_array("world_edit_first_sel_cb", sender));
+        world.beforeEvents.itemUseOn.unsubscribe(super.get_user_array("world_edit_second_sel_cb", sender.id));
+        world.beforeEvents.playerBreakBlock.unsubscribe(super.get_user_array("world_edit_first_sel_cb", sender.id));
 
-        super.set_user_array("world_edit_second_sel_cb", sender, null);
-        super.set_user_array("world_edit_first_sel_cb", sender, null);
+        super.set_user_array("world_edit_second_sel_cb", sender.id, null);
+        super.set_user_array("world_edit_first_sel_cb", sender.id, null);
+
+        super.set_user_array("world_edit_wand_active", sender.id, false);
 
         if (sender != null) {
             sender.sendMessage(`${Color.WHITE}[${Color.MINECOIN_GOLD}WorldEdit${Color.WHITE}]: (${sender.name}) Toggle wand: ${Color.RED}false.`);
@@ -125,6 +164,12 @@ export default class WorldEdit extends Plugin {
     }
 
     set(sender, pattern) {
+        if(!Permission.has(sender, [
+            "SuperAdmin", 
+            "Admin", 
+            "Moderator"
+        ])) return;
+
         let a = super.get_user_array("world_edit_first_sel", sender.id);
         let b = super.get_user_array("world_edit_second_sel", sender.id);
 
@@ -146,7 +191,6 @@ export default class WorldEdit extends Plugin {
 
         let count = super.get_user_array("world_edit_block_count", sender.id);
         let cnt = 0;
-        //console.warn(count);
         if (count < 32768) {
 
             system.run(() => {
@@ -191,6 +235,12 @@ export default class WorldEdit extends Plugin {
 
     //Commands Methods
     static wand(sender) {
+        if(!Permission.has(sender, [
+            "SuperAdmin", 
+            "Admin", 
+            "Moderator"
+        ])) return;
+
         system.run(() => {
             let item = new ItemStack(WorldEdit.instance.wand);
             item.nameTag = "World Edit Wand";
@@ -203,7 +253,7 @@ export default class WorldEdit extends Plugin {
     }
 
     static toggleeditwand(sender) {
-        if (WorldEdit.instance.get_user_array("world_edit_second_sel_cb", sender) == null || WorldEdit.instance.get_user_array("world_edit_first_sel_cb", sender) == null) {
+        if (WorldEdit.instance.get_user_array("world_edit_second_sel_cb", sender.id) == null || WorldEdit.instance.get_user_array("world_edit_first_sel_cb", sender.id) == null) {
             system.run(() => {
 
                 // WorldEdit.instance.toggleOffWand(sender);
