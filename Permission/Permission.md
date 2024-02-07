@@ -26,7 +26,11 @@
         - player: Player | Entity | string
     - <Warning>(void) set(player, perm): set the permission(perm) to player (Warning: this can set every permissions, without permission, so don't allow people to access this method with any command without conditions !)
           - player: Player | Entity | string
-          - perm: string 
+          - perm: string
+        - (bool) includes(perm): Check if permission(perm) is registered in Permission/permissions.js.
+          - perm: string
+        - (void) unset(player): remove all permissions of player.
+        
 
 # Installations
 You must have theses plugins installed before this plugin in plugins.js:
