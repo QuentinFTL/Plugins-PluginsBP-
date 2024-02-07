@@ -22,6 +22,8 @@
     - (bool) canGivePermission(sender, perm = null): check if sender can give Permission(perm) by is rights or isOp().
         - sender: Player | Entity
         - perm: string | null
+    - (undefined|string) get(player): get the permission of the player.
+        - player: Player | Entity | string     
 
 # Installations
 You must have theses plugins installed before this plugin in plugins.js:
