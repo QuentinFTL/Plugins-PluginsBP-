@@ -2,9 +2,6 @@
 
 # - Properties
 - Non-Static
-    - (string) wand: typeId of item used for positions selections. (default="minecraft:wooden_axe")
-    - (callback(playerBreakBlock)) itemUseOn: callback for first selection. (default=null)
-    - (callback(itemUseOn)) itemUseOn: callback for second selection. (default=null)
 
 - Static
     - ([Object]) grades: we use this property to get grades registered in Permission/permissions.js.
