@@ -16,6 +16,14 @@
         - sender: Player | Entity
         - name: string
         - perm: string
+         - Example: ```js
+if(!Permission.has(arg.source, [
+                "Admin", 
+                "SuperAdmin", 
+                "Moderator"
+            ])) return;
+           ```
+          
     - (bool) canGivePermission(sender, perm = null): check if sender can give Permission(perm) by is rights or isOp().
         - sender: Player | Entity
         - perm: string | null
