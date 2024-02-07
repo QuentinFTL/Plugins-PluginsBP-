@@ -40,11 +40,11 @@
     - <Warning>(void) set(player, perm): set the permission(perm) to player (Warning: this can set every permissions, without permission, so don't allow people to access this method with any command without conditions !)
           - player: Player | Entity | string
           - perm: string
-           ```js
-        if (Permission.canGivePermission(sender, perm)) {
-            Permission.set(player, perm);
-        }
-           ```
+            ```js
+                if (Permission.canGivePermission(sender, perm)) {
+                    Permission.set(player, perm);
+                }
+            ```
       
         - (bool) includes(perm): Check if permission(perm) is registered in Permission/permissions.js.
           - perm: string
@@ -55,23 +55,23 @@
            
         - (void) unset(player): remove all permissions of player.
             - player: Player | Entity | string
-           ```js
-        if (Permission.has(player)) {
-            Permission.unset(player);
-        }
-      ```         
+            ```js
+                if (Permission.has(player)) {
+                    Permission.unset(player);
+                }
+            ```         
               
         - (bool) static has(player, permission = ""): if permission = "", check if player as any permission, else, it check if the player has the target(s) permission(s).
             - player: Player | Entity | string
             - permission: string | string[]
             - Example:
-           ```js
-            if(!Permission.has(arg.source, [
-                "Admin", 
-                "SuperAdmin", 
-                "Moderator"
-            ])) return;
-           ```
+            ```js
+                if(!Permission.has(arg.source, [
+                    "Admin", 
+                    "SuperAdmin", 
+                    "Moderator"
+                ])) return;
+            ```
         
 
 # Installations
