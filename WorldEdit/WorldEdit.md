@@ -13,17 +13,20 @@
 
 - (WorldEdit) instance: we use this property to get worldEdit instance from other file etc, and to only have 1 instance, to avoid multiple events.
 
-# - Installations
-You must add the content of the folder inside the script folder (in your Behaviour pack)
-
+# Installations
+You must have theses plugins installed before this plugin in plugins.js:
+- CorePlugin
+- Permissions
 
 # LOG
 
 - 07/02/2024:
     -  WorldEdit (v0.0.2)
         -    Dependencies: (Permission, Core)
+        -    Added Permissions Handler.
     -  Permission (v0.0.1)
 
 
 - 06/02/2024:
     -  WorldEdit (v0.0.1)
+        - base selection with the wooden axe (like the original plugin)
