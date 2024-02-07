@@ -55,23 +55,24 @@
            
         - (void) unset(player): remove all permissions of player.
             - player: Player | Entity | string
-            ```js
-                if (Permission.has(player)) {
-                    Permission.unset(player);
-                }
-            ```         
+            - Example:
+                ```js
+                    if (Permission.has(player)) {
+                        Permission.unset(player);
+                    }
+                ```         
               
         - (bool) static has(player, permission = ""): if permission = "", check if player as any permission, else, it check if the player has the target(s) permission(s).
             - player: Player | Entity | string
             - permission: string | string[]
             - Example:
-            ```js
-                if(!Permission.has(arg.source, [
-                    "Admin", 
-                    "SuperAdmin", 
-                    "Moderator"
-                ])) return;
-            ```
+                ```js
+                    if(!Permission.has(arg.source, [
+                        "Admin", 
+                        "SuperAdmin", 
+                        "Moderator"
+                    ])) return;
+                ```
         
 
 # Installations
