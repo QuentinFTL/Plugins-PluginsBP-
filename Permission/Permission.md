@@ -1,22 +1,20 @@
 # Object
 
- # Properties
+# - Properties
+- Non-Static
+    - (string) wand: typeId of item used for positions selections. (default="minecraft:wooden_axe")
+    - (callback(playerBreakBlock)) itemUseOn: callback for first selection. (default=null)
+    - (callback(itemUseOn)) itemUseOn: callback for second selection. (default=null)
 
-  # Non-Static
+- Static
+    - ([Object]) grades: we use this property to get grades registered in Permission/permissions.js.
 
-            - (string) wand: typeId of item used for positions selections. (default="minecraft:wooden_axe")
-            - (callback(playerBreakBlock)) itemUseOn: callback for first selection. (default=null)
-            - (callback(itemUseOn)) itemUseOn: callback for second selection. (default=null)
-
-  # Static
-            - ([Object]) grades: we use this property to get grades registered in Permission/permissions.js.
-
- # Methods
+# Methods
   
-  # Non-Static
+- Non-Static
 
   
-  # Static
+- Static
     - (void) give(sender, name, perm): give the permission (perm) to the player(name) by sender, if he has the rights to add the role (see Permission/permissions.js).
         - sender: Player | Entity
         - name: string
