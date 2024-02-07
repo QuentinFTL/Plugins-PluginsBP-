@@ -24,7 +24,7 @@
         - perm: string | null
     - (undefined|string) get(player): get the permission of the player.
         - player: Player | Entity | string
-    - [Warning](void) set(player, perm): set the permission(perm) to player (Warning: this can set every permissions, without permission, so don't allow people to access this method with any command without conditions !)
+    - <Warning>(void) set(player, perm): set the permission(perm) to player (Warning: this can set every permissions, without permission, so don't allow people to access this method with any command without conditions !)
           - player: Player | Entity | string
           - perm: string 
 
